@@ -1,5 +1,9 @@
 # scp-deployer
 
+## DataONE version
+
+This is a re-hosted version of scp-deployer, originally developed by siva1024 and released under the MIT license. This rehosted version allows DataONE to customize and securely deploy the image for allied projects.
+
 ## Required Parameters
 
 - `host`: Remote Hostname
@@ -35,7 +39,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2    
     - name: Upload Files
-      uses: siva1024/scp-deployer@latest
+      uses: dataone/scp-deployer@latest
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
