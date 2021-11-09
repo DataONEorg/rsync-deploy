@@ -1,4 +1,4 @@
-# rsync deploy
+# rsync-deploy
 
 Deploy files to a TARGET host using rsync by configuring an appropriate ssh KEY.
 
@@ -16,9 +16,9 @@ Below is the command for generation of SSH keys. For the complete manual the loc
 ```
 ssh-keygen -t rsa -b 4096
 ```
-Generate and save the public key on the Remote Host at `~/.ssh/authorized_keys` location.
+Generate and save the public key on the Remote Host at `~/.ssh/authorized_keys`.
 
-The Private keys should be exposed to the workflow as [Action Secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) for better security.
+Private keys should be exposed to the workflow as [Action Secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) for better security.
 
 ## Example
 
@@ -41,12 +41,10 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        source: "entrypoint.sh"
+        source: "/tmp/sourcedir/"
         target: "~/sometargetdir/"
+```
 
-## History
-
-This is a refactored version of scp-deployer, originally developed by siva1024 and released under the MIT license. This refactored version allows DataONE to customize and securely deploy the image for allied projects, and uses rsync rather than scp.
 ## History
 
 This is a refactored version of scp-deployer, originally developed by siva1024 and released under the MIT license. This refactored version allows DataONE to customize and securely deploy the image for allied projects, and uses rsync rather than scp.
