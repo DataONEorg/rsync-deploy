@@ -8,7 +8,7 @@
 # INPUT_HOST: the target host for deployment
 # INPUT_SOURCE: the directory to copy files from
 # INPUT_TARGET: the directory for files to be copied to on the deployment host
-# INPUT_PUBLISH: the directory where final files are published after they have been deployed to the host
+# INPUT_PUBLISH: the directory where final files are published after they have been deployed to the host; not currently used
 
 # Note that the rsync moves the files to the INPUT_TARGET, but that in a separate step we move the files
 # into the INPUT_PUBLISH to ensure file consistency
@@ -24,14 +24,13 @@ if [[ "$INPUT_KEY" ]]; then
     mkdir -p /root/.ssh && \
         chmod 0700 /root/.ssh && \
         ssh-keyscan ${INPUT_HOST} > /root/.ssh/known_hosts
-    #scp -qr -P $INPUT_PORT -o StrictHostKeyChecking=no -i tmp_id $INPUT_SOURCE "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_TARGET"
     ssh -p ${INPUT_PORT} -i tmp_id ${INPUT_USERNAME}@${INPUT_HOST} "mkdir -p $INPUT_TARGET"
     rsync -rav -e "ssh -i tmp_id -p ${INPUT_PORT}" ${INPUT_SOURCE} $INPUT_USERNAME@$INPUT_HOST:$INPUT_TARGET
     ssh -p ${INPUT_PORT} ${INPUT_USERNAME}@${INPUT_HOST} "chgrp -R web-dev ${INPUT_TARGET}; chmod -R g+rwx ${INPUT_TARGET}"
     #ssh -p ${INPUT_PORT} $INPUT_USERNAME@$INPUT_HOST "if [ -d ${INPUT_PUBLISH}_old ]; then rm -r ${INPUT_PUBLISH}_old; fi; if [ -d ${INPUT_PUBLISH} ]; then mv ${INPUT_PUBLISH} ${INPUT_PUBLISH}_old; fi; mv ${INPUT_TARGET} ${INPUT_PUBLISH}; chgrp -R web-dev ${INPUT_PUBLISH}; chmod -R g+rwx ${INPUT_PUBLISH}"
-    echo "Transfer process complete using rsyn over SSH keys"
+    echo "Transfer process complete using rsync over SSH with keys"
 else
-    echo "Trying password authentication as key is not available"
+    echo "Password authentication is not available. Configure a SSH KEY and try again."
     #sshpass -p $INPUT_PASSWORD scp -qr -P $INPUT_PORT -o StrictHostKeyChecking=no $INPUT_SOURCE "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_TARGET"
     #echo "Transfer process complete using password"
 

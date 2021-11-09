@@ -1,6 +1,6 @@
-name: 'scp-deployer'
-description: 'Deploy using SSH and SCP'
-author: 'Torchilidae'
+name: 'rsync-deploy'
+description: 'Deploy using rsync over ssh with a key'
+author: 'Matt Jones'
 inputs:
   host:
     description: 'ssh remote host'
@@ -14,14 +14,11 @@ inputs:
   key:
     description: 'content of ssh private key. ex raw content of ~/.ssh/id_rsa'
     required: false  
-  password:
-    description: 'ssh remote password'
-    required: false
   source:
     description: 'source to copy from'
     required: false
   target:
-    description: 'destination to download on server'
+    description: 'destination to deploy to on server'
     required: false
 
 runs:
