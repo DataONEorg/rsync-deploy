@@ -21,9 +21,9 @@ if [[ "$INPUT_KEY" ]]; then
     echo -e "${INPUT_KEY}" > tmp_id
     chmod 600 tmp_id
     #echo `ifconfig`
-    mkdir -p ~/.ssh && \
-        chmod 0700 ~/.ssh && \
-        ssh-keyscan ${INPUT_HOST} > ~/.ssh/known_hosts
+    mkdir -p /root/.ssh && \
+        chmod 0700 /root/.ssh && \
+        ssh-keyscan ${INPUT_HOST} > /root/.ssh/known_hosts
     #scp -qr -P $INPUT_PORT -o StrictHostKeyChecking=no -i tmp_id $INPUT_SOURCE "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_TARGET"
     echo "ssh -v -p ${INPUT_PORT} -o StrictHostKeyChecking=no -i tmp_id ${INPUT_USER}@${INPUT_HOST} 'mkdir -p $INPUT_TARGET'"
     ssh -v -p ${INPUT_PORT} -o StrictHostKeyChecking=no -i tmp_id ${INPUT_USER}@${INPUT_HOST} "mkdir -p $INPUT_TARGET"
