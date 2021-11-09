@@ -5,21 +5,25 @@ inputs:
   host:
     description: 'ssh remote host'
     required: true
-  username:
-    description: 'ssh remote user'
-    required: true
   port:
     description: 'ssh remote port'
     default: 22
+  username:
+    description: 'ssh remote user'
+    required: true
+  group:
+    description: 'ssh remote group'
+    required: false
+    default: 'web-dev'
   key:
     description: 'content of ssh private key. ex raw content of ~/.ssh/id_rsa'
-    required: false  
+    required: true  
   source:
     description: 'source to copy from'
-    required: false
+    required: true
   target:
     description: 'destination to deploy to on server'
-    required: false
+    required: true
 
 runs:
   using: 'docker'

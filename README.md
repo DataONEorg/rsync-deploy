@@ -5,9 +5,10 @@ Deploy files to a TARGET host using rsync by configuring an appropriate ssh KEY.
 ## Required Parameters
 
 - `host`: Remote Hostname
-- `username`: Remote Host Username
 - `port`: Remote Host SSH Port
-- `key`: Remote Host SSH Private key
+- `username`: Remote Host Username
+- `group`: Remote Host Group for files
+- `key`: Remote Host SSH Private key for user
 - `source`: Source files location (rsync naming conventions)
 - `target`: Remote Host deployment location (rsync naming conventions)
 
@@ -39,6 +40,7 @@ jobs:
       uses: dataone/rsync-deploy@latest
       with:
         host: ${{ secrets.HOST }}
+        group: ${{ secrets.GROUP }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         source: "/tmp/sourcedir/"
