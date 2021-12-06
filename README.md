@@ -37,7 +37,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2    
     - name: Upload Files
-      uses: dataone/rsync-deploy@latest
+      uses: dataoneorg/rsync-deploy@latest
       with:
         host: ${{ secrets.HOST }}
         group: ${{ secrets.GROUP }}
